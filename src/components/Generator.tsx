@@ -19,11 +19,23 @@ export default () => {
 
   onMount(() => {
     try {
-      if (localStorage.getItem('messageList'))
-        setMessageList(JSON.parse(localStorage.getItem('messageList')))
+      const urlParams = new URLSearchParams(window.location.search)
+      const role = urlParams.get('role')
+      if (role && role.length > 1)
+        setCurrentSystemRoleSettings(role)
 
-      if (localStorage.getItem('systemRoleSettings'))
-        setCurrentSystemRoleSettings(localStorage.getItem('systemRoleSettings'))
+      const first = urlParams.get('first')
+      if (first && first.length > 1) {
+        setMessageList([{
+          role: 'user',
+          content: first,
+        }])
+      }
+      // if (localStorage.getItem('messageList'))
+      //   setMessageList(JSON.parse(localStorage.getItem('messageList')))
+
+      // if (localStorage.getItem('systemRoleSettings'))
+      //   setCurrentSystemRoleSettings(localStorage.getItem('systemRoleSettings'))
     } catch (err) {
       console.error(err)
     }
@@ -204,7 +216,7 @@ export default () => {
           message={currentAssistantMessage}
         />
       )}
-      { currentError() && <ErrorMessageItem data={currentError()} onRetry={retryLastFetch} /> }
+      {currentError() && <ErrorMessageItem data={currentError()} onRetry={retryLastFetch} />}
       <Show
         when={!loading()}
         fallback={() => (
