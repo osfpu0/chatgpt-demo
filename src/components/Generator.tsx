@@ -30,7 +30,10 @@ export default () => {
           role: 'user',
           content: first,
         }])
+
+        requestWithLatestMessage()
       }
+
       // if (localStorage.getItem('messageList'))
       //   setMessageList(JSON.parse(localStorage.getItem('messageList')))
 
