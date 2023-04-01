@@ -19,18 +19,17 @@ export default () => {
 
   onMount(() => {
     try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const role = urlParams.get('role');
-      if (role && role.length > 1) {
+      const urlParams = new URLSearchParams(window.location.search)
+      const role = urlParams.get('role')
+      if (role && role.length > 1)
         setCurrentSystemRoleSettings(role)
-      }
 
-      const first = urlParams.get('first');
+      const first = urlParams.get('first')
       if (first && first.length > 1) {
         setMessageList([{
           role: 'user',
-          content: first
-        }]);
+          content: first,
+        }])
       }
       // if (localStorage.getItem('messageList'))
       //   setMessageList(JSON.parse(localStorage.getItem('messageList')))
@@ -52,7 +51,7 @@ export default () => {
     localStorage.setItem('systemRoleSettings', currentSystemRoleSettings())
   }
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = async() => {
     const inputValue = inputRef.value
     if (!inputValue)
       return
@@ -75,7 +74,7 @@ export default () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
   }, 300, false, true)
 
-  const requestWithLatestMessage = async () => {
+  const requestWithLatestMessage = async() => {
     setLoading(true)
     setCurrentAssistantMessage('')
     setCurrentError(null)
